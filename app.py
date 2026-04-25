@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 from streamlit_lottie import st_lottie
 import requests
 from PIL import Image
+import pandas as pd
 
 # -----------------
 # PAGE CONFIGURATION
@@ -133,59 +134,154 @@ if selected == "About":
 # -----------------
 if selected == "Projects":
     with st.container():
-        st.title("My Projects 🚀")
-        st.write("---")
-        
-        st.write("Here are some of my recent works. Feel free to explore!")
+        # Initialize session state for project view if it doesn't exist
+        if 'project_view' not in st.session_state:
+            st.session_state.project_view = 'grid'
 
-        # List of Projects - You can add more projects here easily!
-        projects = [
-            {
-                "title": "Sales Prediction Model",
-                "tags": ["Python", "Scikit-learn"],
-                "desc": "A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.",
-                "link": "https://github.com/username/sales-prediction-model",
-                "button_text": "View on GitHub"
-            },
-            {
-                "title": "Customer Churn Dashboard",
-                "tags": ["Streamlit", "Pandas"],
-                "desc": "An interactive dashboard allowing business users to visualize churn rates over time and segment customers.",
-                "link": "https://github.com/username/customer-churn-dashboard",
-                "button_text": "View Dashboard"
-            },
-            {
-                "title": "Portfolio Website",
-                "tags": ["Streamlit", "CSS"],
-                "desc": "The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.",
-                "link": "https://github.com/username/portfolio-website",
-                "button_text": "View Code"
-            }
-        ]
+        if st.session_state.project_view == 'grid':
+            st.title("My Projects 🚀")
+            st.write("---")
+            st.write("Here are some of my recent works. Feel free to explore!")
 
-        # Dynamically create the project grid rows (3 columns per row)
-        for i in range(0, len(projects), 3):
-            cols = st.columns(3)
-            for j, col in enumerate(cols):
-                if i + j < len(projects):
-                    proj = projects[i + j]
-                    with col:
-                        # Create HTML tags for each tech stack
-                        tags_html = "".join([f'<span class="tech-tag">{tag}</span>' for tag in proj["tags"]])
+            # List of Projects
+            projects = [
+                {
+                    "id": "sales_model",
+                    "title": "Sales Prediction Model",
+                    "tags": ["Python", "Scikit-learn"],
+                    "desc": "A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.",
+                    "link": "https://github.com/username/sales-prediction-model",
+                    "button_text": "View on GitHub",
+                    "is_internal": False
+                },
+                {
+                    "id": "eda_portfolio",
+                    "title": "Exploratory Data Analysis",
+                    "tags": ["Streamlit", "Pandas", "EDA"],
+                    "desc": "Interactive EDA dashboard where users can view sample data or upload their own dataset.",
+                    "link": "",
+                    "button_text": "Lihat Detail 👀",
+                    "is_internal": True
+                },
+                {
+                    "id": "portfolio_web",
+                    "title": "Portfolio Website",
+                    "tags": ["Streamlit", "CSS"],
+                    "desc": "The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.",
+                    "link": "https://github.com/username/portfolio-website",
+                    "button_text": "View Code",
+                    "is_internal": False
+                }
+            ]
+
+            # Dynamically create the project grid rows (3 columns per row)
+            for i in range(0, len(projects), 3):
+                cols = st.columns(3)
+                for j, col in enumerate(cols):
+                    if i + j < len(projects):
+                        proj = projects[i + j]
+                        with col:
+                            # Create HTML tags for each tech stack
+                            tags_html = "".join([f'<span class="tech-tag">{tag}</span>' for tag in proj["tags"]])
+                            
+                            # Display the Project Card
+                            st.markdown(
+                                f"""
+                                <div class="project-card">
+                                    <div class="project-title">{proj["title"]}</div>
+                                    <div>{tags_html}</div>
+                                    <p class="project-desc" style="margin-top: 10px;">{proj["desc"]}</p>
+                                </div>
+                                """, 
+                                unsafe_allow_html=True
+                            )
+                            # Logic for button: Internal vs External
+                            if proj["is_internal"]:
+                                if st.button(proj["button_text"], key=f"btn_{proj['id']}"):
+                                    st.session_state.project_view = proj["id"]
+                                    st.rerun()
+                            else:
+                                st.link_button(proj["button_text"], proj["link"])
+                                
+        elif st.session_state.project_view == 'eda_portfolio':
+            # -----------------
+            # EDA DETAIL VIEW
+            # -----------------
+            if st.button("⬅️ Kembali ke Daftar Project"):
+                st.session_state.project_view = 'grid'
+                st.rerun()
+                
+            st.title("📊 Exploratory Data Analysis Dashboard")
+            st.write("---")
+            
+            st.write("Di bagian ini, kamu bisa melihat contoh EDA yang saya buat, atau mencoba mengunggah dataset milikmu sendiri untuk melihat hasilnya secara interaktif.")
+            
+            # Pilihan mode data
+            mode_data = st.radio(
+                "Pilih Sumber Data:",
+                ("Gunakan Data Contoh (Dari GitHub)", "Upload Dataset Anda Sendiri (CSV)"),
+                horizontal=True
+            )
+            
+            st.write("---")
+            df = None
+            
+            if mode_data == "Gunakan Data Contoh (Dari GitHub)":
+                st.info("💡 Menampilkan dataset contoh dummy untuk saat ini. Nanti bisa diganti dengan dataset asli dari GitHub.")
+                # Dummy data
+                df = pd.DataFrame({
+                    "Kategori": ["Elektronik", "Pakaian", "Makanan", "Buku", "Mainan"],
+                    "Total_Sales": [1500, 2300, 3100, 800, 1200],
+                    "Rating": [4.5, 4.2, 4.8, 4.9, 4.1]
+                })
+                # Untuk pakai Github ganti jadi: df = pd.read_csv("https://raw.githubusercontent.com/...")
+                
+            elif mode_data == "Upload Dataset Anda Sendiri (CSV)":
+                st.info("💡 Format dataset idealnya memiliki kolom numerik dan kategorikal untuk divisualisasikan.")
+                uploaded_file = st.file_uploader("Pilih file CSV", type=['csv'])
+                
+                if uploaded_file is not None:
+                    try:
+                        df = pd.read_csv(uploaded_file)
+                        st.success("File berhasil diunggah!")
+                    except Exception as e:
+                        st.error(f"Terjadi kesalahan saat membaca file: {e}")
                         
-                        # Display the Project Card
-                        st.markdown(
-                            f"""
-                            <div class="project-card">
-                                <div class="project-title">{proj["title"]}</div>
-                                <div>{tags_html}</div>
-                                <p class="project-desc" style="margin-top: 10px;">{proj["desc"]}</p>
-                            </div>
-                            """, 
-                            unsafe_allow_html=True
-                        )
-                        # Display the link button
-                        st.link_button(proj["button_text"], proj["link"])
+            # Jika dataset berhasil dimuat
+            if df is not None:
+                st.subheader("1. Data Overview")
+                st.write("Preview 5 baris pertama dari dataset:")
+                st.dataframe(df.head())
+                
+                st.subheader("2. Statistik Deskriptif")
+                st.write("Rangkuman statistik dari data numerik:")
+                st.dataframe(df.describe())
+                
+                st.subheader("3. Visualisasi")
+                st.write("Pilih variabel untuk diplot. Fitur ini secara otomatis mendeteksi kolom tipe data pada CSV Anda.")
+                
+                # Mendeteksi kolom string dan numerik secara otomatis
+                kolom_numerik = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+                kolom_kategorikal = df.select_dtypes(include=['object', 'category']).columns.tolist()
+                
+                if len(kolom_kategorikal) > 0 and len(kolom_numerik) > 0:
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        kat_pilihan = st.selectbox("Pilih Kolom Kategorikal (X-axis)", kolom_kategorikal)
+                    with col2:
+                        num_pilihan = st.selectbox("Pilih Kolom Numerik (Y-axis)", kolom_numerik)
+                        
+                    st.write(f"**Total {num_pilihan} berdasarkan {kat_pilihan}**:")
+                    try:
+                        chart_data = df.groupby(kat_pilihan)[num_pilihan].sum().reset_index()
+                        st.bar_chart(chart_data.set_index(kat_pilihan))
+                    except Exception as e:
+                        st.warning("Grafik gagal dimuat karena isi data tidak kompatibel.")
+                elif len(kolom_numerik) > 0:
+                    st.write("Visualisasi tren untuk kolom numerik:")
+                    st.line_chart(df[kolom_numerik])
+                else:
+                    st.warning("Tidak ditemukan kolom yang cocok untuk divisualisasikan secara otomatis.")
 
 # -----------------
 # CONTACT SECTION
