@@ -1,0 +1,227 @@
+import streamlit as st
+from streamlit_option_menu import option_menu
+from streamlit_lottie import st_lottie
+import requests
+from PIL import Image
+
+# -----------------
+# PAGE CONFIGURATION
+# -----------------
+st.set_page_config(
+    page_title="My Portfolio",
+    page_icon="🚀",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# -----------------
+# HELPER FUNCTIONS
+# -----------------
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+def local_css(file_name):
+    try:
+        with open(file_name) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.warning(f"CSS file {file_name} not found.")
+
+# Apply custom CSS
+local_css("style.css")
+
+# -----------------
+# LOAD ASSETS
+# -----------------
+# Placeholder Lottie animation (coding)
+lottie_coding = load_lottieurl("https://lottie.host/80e77d01-dbf2-494b-9721-e01e4a3c10a3/eIV1T3Y3pG.json") 
+lottie_contact = load_lottieurl("https://lottie.host/d19c0b17-09f1-4db5-9e67-0c1fc9372bd1/cIuW8H82fT.json")
+
+# -----------------
+# NAVIGATION
+# -----------------
+with st.sidebar:
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "About", "Projects", "Contact"],
+        icons=["house", "person", "code-slash", "envelope"],
+        menu_icon="cast",
+        default_index=0,
+        orientation="vertical",
+        styles={
+            "container": {"padding": "0!important", "background-color": "transparent"},
+            "icon": {"color": "orange", "font-size": "25px"}, 
+            "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "#4F46E5"},
+        }
+    )
+
+# -----------------
+# HOME SECTION
+# -----------------
+if selected == "Home":
+    with st.container():
+        left_column, right_column = st.columns([2, 1])
+        with left_column:
+            st.title("Hi, I am Zalfa 👋")
+            st.subheader("A passionate learner exploring the world of Data from Indonesia.")
+            st.write("I am currently focused on learning everything about data. From Python programming to creating visualizations, I am building my foundation step by step to solve real-world problems.")
+            st.write("[Download My Resume >](#)")
+        with right_column:
+            if lottie_coding:
+                st_lottie(lottie_coding, height=300, key="coding")
+
+    st.write("---")
+    st.write("### What I do")
+    st.write(
+        """
+        - 💡 Build analytical models that drive business decisions.
+        - 📊 Create interactive and insightful dashboards.
+        - 💻 Develop end-to-end web applications with Python and Streamlit.
+        """
+    )
+
+
+# -----------------
+# ABOUT SECTION
+# -----------------
+if selected == "About":
+    with st.container():
+        st.title("About Me 🧑‍💻")
+        st.write("---")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write("### Journey")
+            st.write(
+                """
+                Hello! I am a Physics Engineering graduate from Telkom University. 
+                Right now, I am fully dedicating my time to learning about data analysis, machine learning, and programming. 
+                I love exploring new tools and continuously expanding my knowledge through online courses and personal projects.
+                """
+            )
+            
+            st.write("### My Learning Focus")
+            st.write("**Data Foundation**")
+            st.write("- Currently learning Python (Pandas, NumPy) and SQL.")
+            st.write("**Visualization & Storytelling**")
+            st.write("- Learning how to communicate data using charts and dashboards.")
+
+        with col2:
+            st.write("### Skills")
+            # Instead of simple text, we can use progress bars (simulating proficiency)
+            st.write("**Python (Pandas, NumPy, Scikit-learn)**")
+            st.progress(90)
+            
+            st.write("**SQL (PostgreSQL, MySQL)**")
+            st.progress(85)
+            
+            st.write("**Data Visualization (Tableau, PowerBI)**")
+            st.progress(80)
+            
+            st.write("**Machine Learning**")
+            st.progress(75)
+            
+            st.write("**Web Development (Streamlit, Flask)**")
+            st.progress(85)
+
+# -----------------
+# PROJECTS SECTION
+# -----------------
+if selected == "Projects":
+    with st.container():
+        st.title("My Projects 🚀")
+        st.write("---")
+        
+        st.write("Here are some of my recent works. Feel free to explore!")
+
+        col1, col2, col3 = st.columns(3)
+
+        # Example Project 1
+        with col1:
+            st.markdown(
+                """
+                <div class="project-card">
+                    <div class="project-title">Sales Prediction Model</div>
+                    <div>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Scikit-learn</span>
+                    </div>
+                    <p class="project-desc" style="margin-top: 10px;">
+                        A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.
+                    </p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+            st.link_button("View on GitHub", "https://github.com/username/sales-prediction-model")
+            
+        with col2:
+            st.markdown(
+                """
+                <div class="project-card">
+                    <div class="project-title">Customer Churn Dashboard</div>
+                    <div>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Pandas</span>
+                    </div>
+                    <p class="project-desc" style="margin-top: 10px;">
+                        An interactive dashboard allowing business users to visualize churn rates over time and segment customers.
+                    </p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+            st.link_button("View Dashboard", "https://github.com/username/customer-churn-dashboard")
+
+        with col3:
+            st.markdown(
+                """
+                <div class="project-card">
+                    <div class="project-title">Portfolio Website</div>
+                    <div>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                    <p class="project-desc" style="margin-top: 10px;">
+                        The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.
+                    </p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+            st.link_button("View Code", "https://github.com/username/portfolio-website")
+
+# -----------------
+# CONTACT SECTION
+# -----------------
+if selected == "Contact":
+    with st.container():
+        st.title("Get In Touch 📬")
+        st.write("---")
+        
+        contact_col1, contact_col2 = st.columns(2)
+        
+        with contact_col1:
+            st.write("I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.")
+            
+            st.write("### Connect with me:")
+            st.write("✉️ **Email:** [your.email@example.com](mailto:your.email@example.com)")
+            st.write("🔗 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)")
+            st.write("🐙 **GitHub:** [github.com/yourusername](https://github.com/yourusername)")
+            
+            st.write("### Send me a message (Example Form)")
+            contact_form = """
+            <form action="https://formsubmit.co/your.email@example.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="name" placeholder="Your name" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <input type="email" name="email" placeholder="Your email" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <textarea name="message" placeholder="Your message here" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; height: 100px;"></textarea>
+                <button type="submit" style="background-color: #4F46E5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Send</button>
+            </form>
+            """
+            st.markdown(contact_form, unsafe_allow_html=True)
+            
+        with contact_col2:
+            if lottie_contact:
+                st_lottie(lottie_contact, height=400, key="contact")

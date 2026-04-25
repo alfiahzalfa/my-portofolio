@@ -1,0 +1,96 @@
+/* Main background and fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Remove top padding for a cleaner look */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Project Card Styling */
+.project-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+    border: 1px solid #f0f0f0;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.project-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.project-desc {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.tech-tag {
+    display: inline-block;
+    background-color: #e5e7eb;
+    color: #374151;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+/* Dark mode adjustment for cards */
+@media (prefers-color-scheme: dark) {
+    .project-card {
+        background-color: #1f2937;
+        border-color: #374151;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    .project-title {
+        color: #f9fafb;
+    }
+    
+    .project-desc {
+        color: #d1d5db;
+    }
+    
+    .tech-tag {
+        background-color: #374151;
+        color: #e5e7eb;
+    }
+}
+
+/* Hide streamlit branding */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Custom buttons */
+.stButton > button {
+    border-radius: 8px;
+    background-color: #4F46E5;
+    color: white;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.stButton > button:hover {
+    background-color: #4338CA;
+    color: white;
+    border-color: transparent;
+}
