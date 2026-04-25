@@ -205,7 +205,7 @@ if selected == "Contact":
             st.write("🔗 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/alfiahzalfatsabitah)")
             st.write("🐙 **GitHub:** [github.com/yourusername](https://github.com/alfiahzalfa)")
             
-            st.write("### Send me a message (Example Form)")
+            st.write("### Send me a message")
             contact_form = """
             <form action="https://formsubmit.co/alfiahzalfatsabitah@gmail.com" method="POST">
                 <input type="hidden" name="_captcha" value="false">
