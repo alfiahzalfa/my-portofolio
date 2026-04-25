@@ -3,3 +3,5 @@ streamlit-option-menu
 streamlit-lottie
 requests
 Pillow
+pandas
+plotly
