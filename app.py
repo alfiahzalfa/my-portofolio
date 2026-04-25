@@ -201,13 +201,13 @@ if selected == "Contact":
             st.write("I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.")
             
             st.write("### Connect with me:")
-            st.write("✉️ **Email:** [your.email@example.com](mailto:your.email@example.com)")
-            st.write("🔗 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)")
-            st.write("🐙 **GitHub:** [github.com/yourusername](https://github.com/yourusername)")
+            st.write("✉️ **Email:** [alfiahzalfatsabitah@gmail.com](mailto:alfiahzalfatsabitah@gmail.com)")
+            st.write("🔗 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/alfiahzalfatsabitah)")
+            st.write("🐙 **GitHub:** [github.com/yourusername](https://github.com/alfiahzalfa)")
             
             st.write("### Send me a message (Example Form)")
             contact_form = """
-            <form action="https://formsubmit.co/your.email@example.com" method="POST">
+            <form action="https://formsubmit.co/alfiahzalfatsabitah@gmail.com" method="POST">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="text" name="name" placeholder="Your name" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
                 <input type="email" name="email" placeholder="Your email" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
