@@ -138,59 +138,54 @@ if selected == "Projects":
         
         st.write("Here are some of my recent works. Feel free to explore!")
 
-        col1, col2, col3 = st.columns(3)
+        # List of Projects - You can add more projects here easily!
+        projects = [
+            {
+                "title": "Sales Prediction Model",
+                "tags": ["Python", "Scikit-learn"],
+                "desc": "A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.",
+                "link": "https://github.com/username/sales-prediction-model",
+                "button_text": "View on GitHub"
+            },
+            {
+                "title": "Customer Churn Dashboard",
+                "tags": ["Streamlit", "Pandas"],
+                "desc": "An interactive dashboard allowing business users to visualize churn rates over time and segment customers.",
+                "link": "https://github.com/username/customer-churn-dashboard",
+                "button_text": "View Dashboard"
+            },
+            {
+                "title": "Portfolio Website",
+                "tags": ["Streamlit", "CSS"],
+                "desc": "The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.",
+                "link": "https://github.com/username/portfolio-website",
+                "button_text": "View Code"
+            }
+        ]
 
-        # Example Project 1
-        with col1:
-            st.markdown(
-                """
-                <div class="project-card">
-                    <div class="project-title">Sales Prediction Model</div>
-                    <div>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                    </div>
-                    <p class="project-desc" style="margin-top: 10px;">
-                        A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.
-                    </p>
-                </div>
-                """, unsafe_allow_html=True
-            )
-            st.link_button("View on GitHub", "https://github.com/username/sales-prediction-model")
-            
-        with col2:
-            st.markdown(
-                """
-                <div class="project-card">
-                    <div class="project-title">Customer Churn Dashboard</div>
-                    <div>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">Pandas</span>
-                    </div>
-                    <p class="project-desc" style="margin-top: 10px;">
-                        An interactive dashboard allowing business users to visualize churn rates over time and segment customers.
-                    </p>
-                </div>
-                """, unsafe_allow_html=True
-            )
-            st.link_button("View Dashboard", "https://github.com/username/customer-churn-dashboard")
-
-        with col3:
-            st.markdown(
-                """
-                <div class="project-card">
-                    <div class="project-title">Portfolio Website</div>
-                    <div>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">CSS</span>
-                    </div>
-                    <p class="project-desc" style="margin-top: 10px;">
-                        The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.
-                    </p>
-                </div>
-                """, unsafe_allow_html=True
-            )
-            st.link_button("View Code", "https://github.com/username/portfolio-website")
+        # Dynamically create the project grid rows (3 columns per row)
+        for i in range(0, len(projects), 3):
+            cols = st.columns(3)
+            for j, col in enumerate(cols):
+                if i + j < len(projects):
+                    proj = projects[i + j]
+                    with col:
+                        # Create HTML tags for each tech stack
+                        tags_html = "".join([f'<span class="tech-tag">{tag}</span>' for tag in proj["tags"]])
+                        
+                        # Display the Project Card
+                        st.markdown(
+                            f"""
+                            <div class="project-card">
+                                <div class="project-title">{proj["title"]}</div>
+                                <div>{tags_html}</div>
+                                <p class="project-desc" style="margin-top: 10px;">{proj["desc"]}</p>
+                            </div>
+                            """, 
+                            unsafe_allow_html=True
+                        )
+                        # Display the link button
+                        st.link_button(proj["button_text"], proj["link"])
 
 # -----------------
 # CONTACT SECTION
