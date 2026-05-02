@@ -329,8 +329,7 @@ elif selected == "Projects":
                 "title": "📊 Exploratory Data Analysis",
                 "tags": ["Streamlit", "Pandas", "EDA", "Plotly"],
                 "desc": "Interactive EDA dashboard — upload CSV atau gunakan data contoh, lalu eksplorasi visualisasi, distribusi fitur, korelasi heatmap, dan statistik deskriptif.",
-                "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
-                "button_text": "Lihat Detail 👀",
+                "button_text": "Lihat Detail",
                 "is_internal": True,
                 "color": "#667eea"
             },
@@ -339,8 +338,7 @@ elif selected == "Projects":
                 "title": "🧩 EDA & Klasifikasi Data",
                 "tags": ["EDA", "Classification", "Decision Tree", "Sklearn"],
                 "desc": "Analisis eksplorasi data lengkap (distribusi, korelasi, boxplot) + klasifikasi multi-model (Decision Tree, Random Forest, Logistic Regression, SVM) dengan cross-validation.",
-                "img": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80",
-                "button_text": "Lihat Detail 🧩",
+                "button_text": "Lihat Detail",
                 "is_internal": True,
                 "color": "#10b981"
             },
@@ -349,8 +347,7 @@ elif selected == "Projects":
                 "title": "🏠 House Price Prediction",
                 "tags": ["Ridge", "Lasso", "Regression", "Sklearn"],
                 "desc": "Prediksi harga rumah menggunakan Linear, Ridge & Lasso Regression. Lengkap dengan alpha tuning, korelasi heatmap, evaluasi RMSE/MAE/MAPE, dan form prediksi interaktif.",
-                "img": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
-                "button_text": "Lihat Detail 🏠",
+                "button_text": "Lihat Detail",
                 "is_internal": True,
                 "color": "#f59e0b"
             },
@@ -359,8 +356,7 @@ elif selected == "Projects":
                 "title": "📈 E-Commerce Sales Forecasting",
                 "tags": ["ARIMA", "Time Series", "Forecasting", "Statsmodels"],
                 "desc": "Analisis tren penjualan harian/mingguan/bulanan & forecasting dengan ARIMA. Upload data transaksi CSV sendiri, lihat uji ADF, dan download hasil forecast.",
-                "img": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80",
-                "button_text": "Lihat Detail 📈",
+                "button_text": "Lihat Detail",
                 "is_internal": True,
                 "color": "#06b6d4"
             },
@@ -369,8 +365,7 @@ elif selected == "Projects":
                 "title": "🏦 Bank Churn Prediction",
                 "tags": ["XGBoost", "Random Forest", "SMOTE", "Sklearn"],
                 "desc": "Prediksi churn nasabah bank menggunakan 4 model ML (Decision Tree, Random Forest, Logistic Regression, XGBoost) + SMOTE untuk handle imbalanced data.",
-                "img": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
-                "button_text": "Lihat Detail 🏦",
+                "button_text": "Lihat Detail",
                 "is_internal": True,
                 "color": "#ef4444"
             },
@@ -382,10 +377,6 @@ elif selected == "Projects":
                 if i + j < len(projects):
                     proj = projects[i + j]
                     with col:
-                        # Project image
-                        st.image(proj["img"], use_container_width=True,
-                                 caption=None)
-
                         tags_html = "".join([
                             f'<span class="tech-tag">{tag}</span>'
                             for tag in proj["tags"]
