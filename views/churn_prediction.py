@@ -182,12 +182,12 @@ def show_churn_page():
     _smote_ok = False
     _xgb_ok = False
     try:
-        from imblearn.over_sampling import SMOTE  # noqa
+        from imblearn.over_sampling import SMOTE  
         _smote_ok = True
     except ImportError:
         pass
     try:
-        from xgboost import XGBClassifier  # noqa
+        from xgboost import XGBClassifier  
         _xgb_ok = True
     except ImportError:
         pass
