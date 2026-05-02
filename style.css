@@ -1,96 +1,404 @@
-/* Main background and fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+/* =============================================
+   GLOBAL FONTS & BASE
+   ============================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
 }
 
-/* Remove top padding for a cleaner look */
+/* =============================================
+   LAYOUT
+   ============================================= */
 .block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    max-width: 1200px;
 }
 
-/* Project Card Styling */
+/* Hide streamlit chrome */
+#MainMenu { visibility: hidden; }
+footer    { visibility: hidden; }
+header    { visibility: hidden; }
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+}
+
+[data-testid="stSidebar"] * {
+    color: #e2e8f0 !important;
+}
+
+/* =============================================
+   HERO BANNER  (injected via st.markdown)
+   ============================================= */
+.hero-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50%       { transform: scale(1.05); opacity: 1; }
+}
+
+.hero-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.88);
+    margin: 0;
+    font-weight: 400;
+}
+
+.hero-badges {
+    margin-top: 1.2rem;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 4px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* =============================================
+   PAGE SECTION HEADER
+   ============================================= */
+.section-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
+    border-radius: 16px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #60a5fa;
+}
+
+.section-header h2 {
+    color: #ffffff !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 0 0 0.3rem 0;
+}
+
+.section-header p {
+    color: #bfdbfe !important;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* =============================================
+   METRIC CARDS  (injected via st.markdown)
+   ============================================= */
+.metric-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.metric-card {
+    flex: 1;
+    min-width: 140px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(99,102,241,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.25);
+}
+
+.metric-card::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.metric-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.metric-value {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.metric-label {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =============================================
+   PROJECT CARDS
+   ============================================= */
 .project-card {
-    background-color: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border-radius: 18px;
+    padding: 1.4rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 20px;
-    border: 1px solid #f0f0f0;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(99,102,241,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(99,102,241,0.25);
+    border-color: rgba(99,102,241,0.5);
 }
 
 .project-title {
-    font-size: 1.25rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: #1f2937;
+    color: #f1f5f9;
 }
 
 .project-desc {
-    font-size: 0.95rem;
-    color: #4b5563;
-    margin-bottom: 15px;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    line-height: 1.6;
 }
 
 .tech-tag {
     display: inline-block;
-    background-color: #e5e7eb;
-    color: #374151;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
+    background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.25));
+    color: #a5b4fc;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: 600;
     margin-right: 5px;
     margin-bottom: 5px;
+    border: 1px solid rgba(99,102,241,0.35);
 }
 
-/* Dark mode adjustment for cards */
-@media (prefers-color-scheme: dark) {
-    .project-card {
-        background-color: #1f2937;
-        border-color: #374151;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-    
-    .project-title {
-        color: #f9fafb;
-    }
-    
-    .project-desc {
-        color: #d1d5db;
-    }
-    
-    .tech-tag {
-        background-color: #374151;
-        color: #e5e7eb;
-    }
+/* =============================================
+   SKILL BARS
+   ============================================= */
+.skill-item {
+    margin-bottom: 1rem;
 }
 
-/* Hide streamlit branding */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-
-/* Custom buttons */
-.stButton > button {
-    border-radius: 8px;
-    background-color: #4F46E5;
-    color: white;
+.skill-name {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
     font-weight: 600;
-    border: none;
-    transition: background-color 0.3s ease;
+    color: #e2e8f0;
+    margin-bottom: 0.4rem;
+}
+
+.skill-bar-bg {
+    background: #1e293b;
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.skill-bar-fill {
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 1s ease;
+}
+
+/* =============================================
+   ABOUT CARD
+   ============================================= */
+.about-card {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border-radius: 18px;
+    padding: 1.8rem;
+    border: 1px solid rgba(99,102,241,0.2);
+    margin-bottom: 1rem;
+}
+
+.about-card h3 {
+    color: #818cf8 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+/* =============================================
+   INFO / GRADIENT BANNER
+   ============================================= */
+.info-banner {
+    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    color: #c7d2fe;
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   RESULT CARD (Prediction)
+   ============================================= */
+.result-card {
+    background: linear-gradient(135deg, #065f46, #047857);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(16,185,129,0.4);
+    box-shadow: 0 4px 20px rgba(16,185,129,0.2);
+    margin: 1rem 0;
+}
+
+.result-label {
+    font-size: 0.85rem;
+    color: #6ee7b7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.stButton > button {
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    border: none !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.35) !important;
 }
 
 .stButton > button:hover {
-    background-color: #4338CA;
-    color: white;
-    border-color: transparent;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(102,126,234,0.5) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* Primary button */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    box-shadow: 0 4px 15px rgba(16,185,129,0.35) !important;
+}
+
+/* =============================================
+   TABS
+   ============================================= */
+.stTabs [data-baseweb="tab-list"] {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+/* =============================================
+   EXPANDER
+   ============================================= */
+.streamlit-expanderHeader {
+    background: linear-gradient(135deg, #1e293b, #334155) !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    color: #e2e8f0 !important;
+}
+
+/* =============================================
+   DATAFRAMES
+   ============================================= */
+.stDataFrame {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* =============================================
+   SELECTBOX / INPUT LABELS
+   ============================================= */
+label[data-testid="stWidgetLabel"] p {
+    font-weight: 600 !important;
+    color: #cbd5e1 !important;
+    font-size: 0.875rem !important;
 }
