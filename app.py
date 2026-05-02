@@ -6,9 +6,10 @@ from PIL import Image
 import pandas as pd
 import plotly.express as px
 from views.eda_portfolio import show_eda_page
-from views.prediction_portfolio import show_prediction_page
 from views.regression_house_price import show_regression_page
 from views.timeseries_forecast import show_timeseries_page
+from views.churn_prediction import show_churn_page
+from views.eda_classification import show_eda_classification_page
 
 # -----------------
 # PAGE CONFIGURATION
@@ -143,7 +144,7 @@ if selected == "Home":
                         border:1px solid rgba(99,102,241,0.4); border-radius:12px;
                         padding:0.8rem 1.2rem; text-align:center; min-width:100px;">
                 <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.6rem;
-                            font-weight:800; color:#a5b4fc;">3+</div>
+                            font-weight:800; color:#a5b4fc;">5</div>
                 <div style="font-size:0.75rem; color:#94a3b8;">Projects</div>
             </div>
             <div style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(5,150,105,0.2));
@@ -334,12 +335,12 @@ elif selected == "Projects":
                 "color": "#667eea"
             },
             {
-                "id": "ml_prediction",
-                "title": "🤖 ML Prediction & Model Analysis",
-                "tags": ["Scikit-learn", "Plotly", "ML", "Streamlit"],
-                "desc": "Platform prediksi ML interaktif — pilih model (Logistic Regression, Random Forest, SVM), upload CSV, jalankan prediksi, dan analisis performa model.",
-                "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
-                "button_text": "Lihat Detail 🤖",
+                "id": "eda_classification",
+                "title": "🧩 EDA & Klasifikasi Data",
+                "tags": ["EDA", "Classification", "Decision Tree", "Sklearn"],
+                "desc": "Analisis eksplorasi data lengkap (distribusi, korelasi, boxplot) + klasifikasi multi-model (Decision Tree, Random Forest, Logistic Regression, SVM) dengan cross-validation.",
+                "img": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80",
+                "button_text": "Lihat Detail 🧩",
                 "is_internal": True,
                 "color": "#10b981"
             },
@@ -364,15 +365,14 @@ elif selected == "Projects":
                 "color": "#06b6d4"
             },
             {
-                "id": "portfolio_web",
-                "title": "🌐 Portfolio Website",
-                "tags": ["Streamlit", "CSS", "Python", "GitHub"],
-                "desc": "The exact portfolio you are looking at! Built from scratch with Streamlit, custom CSS, glassmorphism design, and deployed to Streamlit Cloud.",
-                "img": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80",
-                "button_text": "View Code 💻",
-                "is_internal": False,
-                "link": "https://github.com/alfiahzalfa/my-portofolio",
-                "color": "#8b5cf6"
+                "id": "churn_prediction",
+                "title": "🏦 Bank Churn Prediction",
+                "tags": ["XGBoost", "Random Forest", "SMOTE", "Sklearn"],
+                "desc": "Prediksi churn nasabah bank menggunakan 4 model ML (Decision Tree, Random Forest, Logistic Regression, XGBoost) + SMOTE untuk handle imbalanced data.",
+                "img": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
+                "button_text": "Lihat Detail 🏦",
+                "is_internal": True,
+                "color": "#ef4444"
             },
         ]
 
@@ -416,14 +416,17 @@ elif selected == "Projects":
     elif st.session_state.project_view == 'eda_portfolio':
         show_eda_page()
 
-    elif st.session_state.project_view == 'ml_prediction':
-        show_prediction_page()
+    elif st.session_state.project_view == 'eda_classification':
+        show_eda_classification_page()
 
     elif st.session_state.project_view == 'regression_house':
         show_regression_page()
 
     elif st.session_state.project_view == 'timeseries_forecast':
         show_timeseries_page()
+
+    elif st.session_state.project_view == 'churn_prediction':
+        show_churn_page()
 
 
 # =============================================================
