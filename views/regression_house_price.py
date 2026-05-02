@@ -62,7 +62,7 @@ def show_regression_page():
         df  = pd.DataFrame(raw.data, columns=raw.feature_names)
         df["MedHouseVal"] = raw.target
         target_col   = "MedHouseVal"
-        feature_cols = raw.feature_names.tolist()
+        feature_cols = list(raw.feature_names)
         st.success(f"✅ California Housing Dataset — {df.shape[0]:,} baris, {df.shape[1]} kolom")
         with st.expander("ℹ️ Info Kolom"):
             st.markdown("""
