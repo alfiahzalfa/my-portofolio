@@ -7,6 +7,8 @@ import pandas as pd
 import plotly.express as px
 from views.eda_portfolio import show_eda_page
 from views.prediction_portfolio import show_prediction_page
+from views.regression_house_price import show_regression_page
+from views.timeseries_forecast import show_timeseries_page
 
 # -----------------
 # PAGE CONFIGURATION
@@ -342,6 +344,26 @@ elif selected == "Projects":
                 "color": "#10b981"
             },
             {
+                "id": "regression_house",
+                "title": "🏠 House Price Prediction",
+                "tags": ["Ridge", "Lasso", "Regression", "Sklearn"],
+                "desc": "Prediksi harga rumah menggunakan Linear, Ridge & Lasso Regression. Lengkap dengan alpha tuning, korelasi heatmap, evaluasi RMSE/MAE/MAPE, dan form prediksi interaktif.",
+                "img": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80",
+                "button_text": "Lihat Detail 🏠",
+                "is_internal": True,
+                "color": "#f59e0b"
+            },
+            {
+                "id": "timeseries_forecast",
+                "title": "📈 E-Commerce Sales Forecasting",
+                "tags": ["ARIMA", "Time Series", "Forecasting", "Statsmodels"],
+                "desc": "Analisis tren penjualan harian/mingguan/bulanan & forecasting dengan ARIMA. Upload data transaksi CSV sendiri, lihat uji ADF, dan download hasil forecast.",
+                "img": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80",
+                "button_text": "Lihat Detail 📈",
+                "is_internal": True,
+                "color": "#06b6d4"
+            },
+            {
                 "id": "portfolio_web",
                 "title": "🌐 Portfolio Website",
                 "tags": ["Streamlit", "CSS", "Python", "GitHub"],
@@ -350,7 +372,7 @@ elif selected == "Projects":
                 "button_text": "View Code 💻",
                 "is_internal": False,
                 "link": "https://github.com/alfiahzalfa/my-portofolio",
-                "color": "#f59e0b"
+                "color": "#8b5cf6"
             },
         ]
 
@@ -396,6 +418,12 @@ elif selected == "Projects":
 
     elif st.session_state.project_view == 'ml_prediction':
         show_prediction_page()
+
+    elif st.session_state.project_view == 'regression_house':
+        show_regression_page()
+
+    elif st.session_state.project_view == 'timeseries_forecast':
+        show_timeseries_page()
 
 
 # =============================================================
