@@ -6,6 +6,7 @@ from PIL import Image
 import pandas as pd
 import plotly.express as px
 from views.eda_portfolio import show_eda_page
+from views.prediction_portfolio import show_prediction_page
 
 # -----------------
 # PAGE CONFIGURATION
@@ -66,6 +67,17 @@ with st.sidebar:
 # HOME SECTION
 # -----------------
 if selected == "Home":
+    # ── Main Title (sesuai soal) ────────────────
+    st.markdown(
+        "<h1 style='text-align:center; font-size:2.8rem;'>My Portfolio with Streamlit 🚀</h1>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<p style='text-align:center; color:#6B7280; font-size:1.1rem;'>A showcase of my data science projects, skills, and learning journey.</p>",
+        unsafe_allow_html=True
+    )
+    st.write("")
+
     with st.container():
         left_column, right_column = st.columns([2, 1])
         with left_column:
@@ -148,29 +160,32 @@ if selected == "Projects":
             # List of Projects
             projects = [
                 {
-                    "id": "sales_model",
-                    "title": "Sales Prediction Model",
-                    "tags": ["Python", "Scikit-learn"],
-                    "desc": "A machine learning model to predict future store sales using historical data and promotional events. Achieved 90% accuracy.",
-                    "link": "https://github.com/username/sales-prediction-model",
-                    "button_text": "View on GitHub",
-                    "is_internal": False
-                },
-                {
                     "id": "eda_portfolio",
                     "title": "Exploratory Data Analysis",
                     "tags": ["Streamlit", "Pandas", "EDA"],
-                    "desc": "Interactive EDA dashboard where users can view sample data or upload their own dataset.",
+                    "desc": "Interactive EDA dashboard — upload dataset CSV atau gunakan data contoh, lalu eksplorasi visualisasi, distribusi fitur, dan korelasi heatmap.",
+                    "img": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
                     "link": "",
                     "button_text": "Lihat Detail 👀",
                     "is_internal": True
                 },
                 {
+                    "id": "ml_prediction",
+                    "title": "ML Prediction & Model Analysis",
+                    "tags": ["Scikit-learn", "Plotly", "ML"],
+                    "desc": "Platform prediksi machine learning interaktif — pilih model (Logistic Regression, Random Forest, SVM), upload CSV, jalankan prediksi, dan lihat performa model.",
+                    "img": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
+                    "link": "",
+                    "button_text": "Lihat Detail 🤖",
+                    "is_internal": True
+                },
+                {
                     "id": "portfolio_web",
                     "title": "Portfolio Website",
-                    "tags": ["Streamlit", "CSS"],
+                    "tags": ["Streamlit", "CSS", "Python"],
                     "desc": "The exact portfolio you are looking at right now! Built from scratch using Streamlit and custom CSS styling.",
-                    "link": "https://github.com/username/portfolio-website",
+                    "img": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80",
+                    "link": "https://github.com/alfiahzalfa/my-portofolio",
                     "button_text": "View Code",
                     "is_internal": False
                 }
@@ -183,6 +198,9 @@ if selected == "Projects":
                     if i + j < len(projects):
                         proj = projects[i + j]
                         with col:
+                            # Gambar proyek
+                            st.image(proj["img"], use_container_width=True)
+
                             # Create HTML tags for each tech stack
                             tags_html = "".join([f'<span class="tech-tag">{tag}</span>' for tag in proj["tags"]])
                             
@@ -207,6 +225,9 @@ if selected == "Projects":
                                 
         elif st.session_state.project_view == 'eda_portfolio':
             show_eda_page()
+
+        elif st.session_state.project_view == 'ml_prediction':
+            show_prediction_page()
 
 # -----------------
 # CONTACT SECTION
