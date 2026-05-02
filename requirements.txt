@@ -4,8 +4,11 @@ streamlit-lottie
 requests
 Pillow
 pandas
+numpy
 plotly
 scikit-learn
 scipy
 matplotlib
 statsmodels
+xgboost
+imbalanced-learn

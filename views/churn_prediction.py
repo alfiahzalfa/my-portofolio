@@ -178,6 +178,25 @@ def show_churn_page():
     with col_s2:
         use_smote = st.checkbox("Gunakan SMOTE (handle imbalance)", value=True, key="churn_smote")
 
+    # Cek library yang tersedia
+    _smote_ok = False
+    _xgb_ok = False
+    try:
+        from imblearn.over_sampling import SMOTE  # noqa
+        _smote_ok = True
+    except ImportError:
+        pass
+    try:
+        from xgboost import XGBClassifier  # noqa
+        _xgb_ok = True
+    except ImportError:
+        pass
+
+    lib_status = []
+    lib_status.append(f"{'✅' if _smote_ok else '❌'} imbalanced-learn (SMOTE)")
+    lib_status.append(f"{'✅' if _xgb_ok else '❌'} xgboost")
+    st.info("📦 **Library Status:** " + " &nbsp;|&nbsp; ".join(lib_status))
+
     if st.button("🚀 Latih Semua Model", key="train_churn", use_container_width=True):
         with st.spinner("Melatih model..."):
             results = _train_churn_models(df, target_col, test_size, use_smote)
@@ -271,7 +290,7 @@ def _train_churn_models(df, target_col, test_size, use_smote):
                 sm = SMOTE(random_state=42)
                 X_train, y_train = sm.fit_resample(X_train, y_train)
             except ImportError:
-                st.warning("⚠️ imbalanced-learn tidak tersedia, SMOTE dilewati.")
+                st.warning("⚠️ imbalanced-learn belum terinstall. Jalankan: `pip install imbalanced-learn`\nSMOTE dilewati, training tetap dilanjutkan.")
 
         models = {
             'Decision Tree': DecisionTreeClassifier(max_depth=5, random_state=42),
@@ -284,7 +303,7 @@ def _train_churn_models(df, target_col, test_size, use_smote):
             models['XGBoost'] = XGBClassifier(n_estimators=100, random_state=42,
                                                eval_metric='logloss', verbosity=0)
         except ImportError:
-            pass
+            st.info("ℹ️ xgboost belum terinstall — hanya 3 model yang dilatih. Jalankan: `pip install xgboost`")
 
         results = {}
         for name, model in models.items():
