@@ -164,7 +164,7 @@ if selected == "Home":
         </div>
         """, unsafe_allow_html=True)
 
-        st.link_button("📄 Download My Resume", "#", use_container_width=False)
+
 
     with col_lottie:
         if lottie_coding:
