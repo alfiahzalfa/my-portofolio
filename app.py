@@ -180,7 +180,7 @@ if selected == "Home":
     </div>
     """, unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3, gap="medium")
+    c1, c2 = st.columns(2, gap="medium")
     cards = [
         ("💡", "Analytical Modeling",
          "Build ML models that drive real business decisions — from regression to classification.",
@@ -188,11 +188,8 @@ if selected == "Home":
         ("📊", "Data Visualization",
          "Create interactive, insightful dashboards using Plotly, Streamlit, Tableau, and PowerBI.",
          "#10b981", "#059669"),
-        ("💻", "Web Applications",
-         "Develop end-to-end data apps with Python and Streamlit for seamless user experience.",
-         "#f59e0b", "#d97706"),
     ]
-    for col, (icon, title, desc, c1_hex, c2_hex) in zip([c1, c2, c3], cards):
+    for col, (icon, title, desc, c1_hex, c2_hex) in zip([c1, c2], cards):
         with col:
             st.markdown(f"""
             <div style="background:linear-gradient(145deg,#1e293b,#0f172a);
