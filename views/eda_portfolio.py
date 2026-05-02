@@ -283,15 +283,26 @@ def show_eda_page():
                                               index=min(1, len(kolom_num)-1), key="t2_scy")
                 with sc3: col_f = st.selectbox("Warna:", ["—"] + kolom_kat, key="t2_scc")
 
-                fig_sc = px.scatter(
-                    df, x=x_f, y=y_f,
-                    color=col_f if col_f != "—" else None,
-                    title=f"<b>{x_f}</b> vs <b>{y_f}</b>",
-                    template=PLOTLY_TEMPLATE,
-                    trendline="ols",
-                    color_discrete_sequence=COLOR_SEQ,
-                    opacity=0.8
-                )
+                try:
+                    fig_sc = px.scatter(
+                        df, x=x_f, y=y_f,
+                        color=col_f if col_f != "—" else None,
+                        title=f"<b>{x_f}</b> vs <b>{y_f}</b>",
+                        template=PLOTLY_TEMPLATE,
+                        trendline="ols",
+                        color_discrete_sequence=COLOR_SEQ,
+                        opacity=0.8
+                    )
+                except Exception:
+                    # Fallback jika statsmodels belum terinstall
+                    fig_sc = px.scatter(
+                        df, x=x_f, y=y_f,
+                        color=col_f if col_f != "—" else None,
+                        title=f"<b>{x_f}</b> vs <b>{y_f}</b>",
+                        template=PLOTLY_TEMPLATE,
+                        color_discrete_sequence=COLOR_SEQ,
+                        opacity=0.8
+                    )
                 fig_sc.update_layout(
                     margin=dict(l=0, r=0, t=50, b=0),
                     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
@@ -380,10 +391,12 @@ def show_eda_page():
     # ═══════════════════════════════════════════
     with tab4:
         st.markdown("### 🔍 Ringkasan Statistik Deskriptif")
-        st.dataframe(df.describe().T.style
-                       .background_gradient(cmap="Blues", subset=["mean","std"])
-                       .format(precision=2),
-                     use_container_width=True)
+        desc = df.describe().T.round(2)
+        try:
+            styled = desc.style.background_gradient(cmap="Blues", subset=[c for c in ["mean","std"] if c in desc.columns]).format(precision=2)
+            st.dataframe(styled, use_container_width=True)
+        except Exception:
+            st.dataframe(desc, use_container_width=True)
 
         if kolom_kat:
             st.markdown("### 🏷️ Distribusi Kolom Kategorikal")
