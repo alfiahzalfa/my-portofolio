@@ -82,16 +82,6 @@ with st.sidebar:
         }
     )
 
-    st.markdown("""
-    <div style="position:absolute; bottom:2rem; left:0; right:0; text-align:center;
-                padding: 0 1rem;">
-        <div style="background:rgba(99,102,241,0.15); border:1px solid rgba(99,102,241,0.3);
-                    border-radius:10px; padding:0.8rem; font-size:0.75rem; color:#94a3b8;">
-            🌐 <a href="https://alfiahzalfa-portofolio.streamlit.app"
-               style="color:#818cf8; text-decoration:none;">Live Portfolio</a>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
 # =============================================================
 # HOME SECTION
