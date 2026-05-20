@@ -40,6 +40,19 @@ def local_css(file_name):
 # Apply custom CSS
 local_css("style.css")
 
+# Force sidebar always expanded (clear browser localStorage state)
+st.markdown("""
+<script>
+    // Remove Streamlit's stored sidebar collapsed state from localStorage
+    const keys = Object.keys(localStorage);
+    keys.forEach(k => {
+        if (k.includes('sidebar') || k.includes('Sidebar')) {
+            localStorage.removeItem(k);
+        }
+    });
+</script>
+""", unsafe_allow_html=True)
+
 # -----------------
 # LOAD ASSETS
 # -----------------
