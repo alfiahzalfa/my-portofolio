@@ -3,8 +3,26 @@
    ============================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-html, body, [class*="css"] {
+html, body {
     font-family: 'Inter', sans-serif;
+}
+
+/* =============================================
+   FORCE SIDEBAR VISIBLE
+   ============================================= */
+[data-testid="stSidebar"],
+[data-testid="stSidebarContent"],
+section[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Pastikan tombol collapse sidebar terlihat */
+[data-testid="collapsedControl"],
+button[data-testid="baseButton-headerNoPadding"] {
+    display: flex !important;
+    visibility: visible !important;
 }
 
 /* =============================================
